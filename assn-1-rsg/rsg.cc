@@ -55,13 +55,13 @@ static void readGrammar(ifstream& infile, map<string, Definition>& grammar)
  *             token is represented as a '\0'-terminated C string.
  */
 
-void re(vector<string>& result,Production& s,map<string, Definition>& g)
+void DFS(vector<string>& result,Definition& d,map<string, Definition>& g)
 {	
-	for (Production::iterator curr = s.begin(); curr != s.end(); ++curr) {	
-		if(curr->front()=='<' && curr->back()=='>'){
-			Definition Next = g[*curr];
-			Production Sprod = Next.getRandomProduction();			
-			re(result,Sprod,g);
+	Production S = d.	getRandomProduction();
+	for (Production::iterator curr = S.begin(); curr != S.end(); ++curr) {
+		if(curr->front()=='<' && curr->back()=='>'){      // have a < >
+			d = g[*curr];	
+			DFS(result,d,g);
 		}
 		else{
 			result.push_back(*curr);
@@ -86,13 +86,13 @@ int main(int argc, char *argv[])
   // things are looking good...
   map<string, Definition> grammar;
   readGrammar(grammarFile, grammar);
-	
-	Definition start = grammar[string("<start>")];
-	Production Sprod = start.getRandomProduction();	
+
+//	Production Sprod = start.getRandomProduction();	 //  
 	for(int i=0;i<3;i++){
+  	Definition start = grammar[string("<start>")];   // find root
 		cout<<"Version #"<<i+1<<": --------------------------"<<endl<<"    ";
 		vector<string> result;
-		re(result,Sprod,grammar);
+		DFS(result,start,grammar);
 		for(auto x:result){	
 			cout<<x<<" ";
 		}
