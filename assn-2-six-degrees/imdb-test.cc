@@ -3,6 +3,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <string.h>
 #include "imdb.h"
 using namespace std;
 
@@ -201,7 +202,7 @@ static void queryForActors(const imdb& db)
 int main(int argc, char **argv)
 {
   imdb db(determinePathToData());
-  if (!db.good()) { cerr << "Data directory not found!  Aborting..." << endl; return 1; }
+  if (!db.good()) { cerr << "Data directory not found!  Aborting..." << endl; return 1;} 
   queryForActors(db);
   return 0;
 }

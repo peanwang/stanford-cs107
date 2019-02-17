@@ -9,6 +9,57 @@ using namespace std;
 class imdb {
   
  public:
+
+//	some Help function that written by peanwang
+  /**
+   * Method: Getmovieinfo
+   * ------------------
+   *  give me offset in movieFile
+   *  This function return film`s information
+   *
+   * @param  movie`s offset  in movieFile
+   * @param  movie`s offset point to the film,
+   *                                  is film some information
+   * @return 	void
+   */
+ 	void Getmovieinfo(int offset,film& movie)const;
+  /**
+   * Method: GetActorfilms_offset 
+   * ------------------
+   *
+   *
+   *
+   * @param  actor`s offset in actorFile
+   * @param  THe movie `s offset in movieFile 
+   * @return 	void
+   */
+	
+	void GetActorfilms_offset(int offset,vector<int>& fileoffset)const; 
+
+  /**
+   * Method: GetActorfilms_offset 
+   * ------------------
+   *
+   *
+   *
+   * @param  actor`s offset in actorFile
+   * @param  THe movie `s offset in movieFile 
+   * @return 	void
+   */
+	void Getactorinfo(int offset,string& movie)const;
+  /**
+   * Method: GetActorfilms_offset 
+   * ------------------
+   *
+   *
+   *
+   * @param  actor`s offset in actorFile
+   * @param  THe movie `s offset in movieFile 
+   * @return 	void
+   */
+	void GetFilmsactor_offset(int offset,vector<int>& Actoroffset)const;
+
+//  Over
   
   /**
    * Constructor: imdb
@@ -82,7 +133,7 @@ class imdb {
    */
 
   ~imdb();
-  
+
  private:
   static const char *const kActorFileName;
   static const char *const kMovieFileName;
