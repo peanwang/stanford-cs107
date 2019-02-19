@@ -103,7 +103,7 @@ void imdb::Getmovieinfo(int offset,film& movie)const {
 //   Key function,   using bsearch,search films that player had appeared
 bool imdb::getCredits(const string& player, vector<film>& films) const { 
 	const char* playerP = player.c_str();
-	char** base_player = (char**)malloc(32);
+	char** base_player = (char**)malloc(200);
 	memcpy(base_player,&actorFile,8);
 	memcpy(base_player+8,&playerP,8);
 	//			bsearch return  int*  is film`s offset,otherwise return NULL
@@ -200,7 +200,7 @@ void imdb::Getactorinfo(int offset,string& player)const {
 bool imdb::getCast(const film& movie, vector<string>& players) const { 
 	const char* movieP = movie.title.c_str();
 	int year = movie.year-1900; 
-	char** base_movie = (char**)malloc(100);
+	char** base_movie = (char**)malloc(200);
 	memcpy(base_movie,&movieFile,8);
 	memcpy(base_movie+8,&movieP,8);
 	memcpy(base_movie+16,&year,4);

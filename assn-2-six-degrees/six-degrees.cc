@@ -37,6 +37,44 @@ static string promptForActor(const string& prompt, const imdb& db)
   }
 }
 
+int BFS(const imdb& db,const string& source,const string& target){
+			list<path> partialPaths;
+			set<string> previouslySeenActors;
+			set<film> previouslySeenFilms;
+
+			path partialPath(source);
+			partialPaths.push_back(partialPath);
+			while(!partialPaths.empty() && partialPaths.front().getLength()<=5){
+				path path1 = partialPaths.front();
+				partialPaths.pop_front();
+				string actor = path1.getLastPlayer();
+				vector<film> films;
+				db.getCredits(actor,films);
+				for(auto F:films){
+					if(previouslySeenFilms.find(F) == previouslySeenFilms.end()){
+							previouslySeenFilms.insert(F);
+							vector<string> players;							
+							db.getCast(F,players);
+							for(auto player:players){
+								if(previouslySeenActors.find(player) ==previouslySeenActors.end()){
+										previouslySeenActors.insert(player);
+										path temp = path1;
+										temp.addConnection(F,player);
+										if(player == target){
+											cout<<temp;
+											return 1;
+										}
+										else
+											partialPaths.push_back(temp);
+								}
+							}
+					}																
+				}
+			}
+			return 0;
+}
+
+
 /**
  * Serves as the main entry point for the six-degrees executable.
  * There are no parameters to speak of.
@@ -69,9 +107,9 @@ int main(int argc, const char *argv[])
     if (source == target) {
       cout << "Good one.  This is only interesting if you specify two different people." << endl;
     } else {
-      // replace the following line by a call to your generateShortestPath routine... 
-      cout << endl << "No path between those two people could be found." << endl << endl;
-    }
+			if(BFS(db,source,target) ==0)
+		      cout << endl << "No path between those two people could be found." << endl << endl;
+	    }
   }
   
   cout << "Thanks for playing!" << endl;
