@@ -121,7 +121,7 @@ void VectorMap(vector *v, VectorMapFunction mapFn, void *auxData){
 static const int kNotFound = -1;
 int VectorSearch(const vector *v, const void *key, VectorCompareFunction searchFn, int startIndex, bool isSorted){
 	assert(startIndex>=0);
-	assert(v->logicallen>startIndex);
+	assert(v->logicallen>=startIndex);
 	assert(key != NULL);
 	assert(searchFn != NULL);
 	char* result;
