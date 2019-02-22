@@ -68,7 +68,11 @@ typedef void (*VectorFreeFunction)(void *elemAddr);
  */
 
 typedef struct {
-  // to be filled in by you
+	void* elems;
+	int elemsize;
+	int logicallen;
+	int alloclen;
+	VectorFreeFunction freefn;
 } vector;
 
 /** 
